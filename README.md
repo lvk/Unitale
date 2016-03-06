@@ -13,5 +13,5 @@ http://www.mediafire.com/download/6cfsv7pggfodcwx/Undertale_Assets_and_Example_M
 
 ##Licenses
 
-Unitale is released under the GNU General Public License 3.0, and can be found at UNITALE_LICENSE.
+Unitale is released under the GNU General Public License 3.0.
 We are using MoonSharp as our Lua interpreter, written by Marco Mastropaolo. The binary is included in /Assets/Plugins. License details in MOONSHARP_LICENSE.
