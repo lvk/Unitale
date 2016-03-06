@@ -353,6 +353,7 @@ public class UIController : MonoBehaviour
         arenaParent = GameObject.Find("arena_border_outer");
         canvasParent = GameObject.Find("Canvas");
         uiAudio = GetComponent<AudioSource>();
+        uiAudio.clip = sndSelect;
 
         instance = this;
     }
