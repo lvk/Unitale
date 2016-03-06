@@ -117,6 +117,7 @@ public static class SpriteUtil
             SwapSpriteFromFile(i, filename);
         }
         i.transform.SetParent(GameObject.Find("BelowArenaLayer").transform, true); //TODO layering
+        i.transform.localPosition=new Vector3(320,0);
         return new LuaSpriteController(i);
     }
 }
