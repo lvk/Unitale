@@ -26,6 +26,13 @@ public class LuaProjectile : Projectile
             BulletPool.instance.Requeue(this);*/
     }
 
+    public void OnTriggerEnter2D(Collider2D col) {
+
+        if (col.tag=="Player")
+            OnProjectileHit();
+
+    }
+
     public override void OnProjectileHit()
     {
         if (owner.Globals["OnHit"] != null && owner.Globals.Get("OnHit") != null)

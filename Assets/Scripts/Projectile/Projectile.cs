@@ -70,10 +70,6 @@ public abstract class Projectile : MonoBehaviour
     {
         ctrl.UpdatePosition();
         OnUpdate();
-        if (HitTest())
-        {
-            OnProjectileHit();
-        }
     }
 
     /// <summary>
@@ -131,17 +127,5 @@ public abstract class Projectile : MonoBehaviour
         }
 
         currentlyVisible = active;
-    }
-
-    /// <summary>
-    /// Overrideable method run on every frame that should update the hitbox and return true if this projectile is hitting the player.
-    /// </summary>
-    /// <returns>true if there's a collision, otherwise false</returns>
-    public virtual bool HitTest()
-    {
-        UpdateHitRect();
-        if (selfAbs.Overlaps(PlayerController.instance.playerAbs))
-            return true;
-        return false;
     }
 }
