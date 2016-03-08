@@ -81,6 +81,7 @@ public class TextManager : MonoBehaviour
         // setText("the quick brown fox jumps over\rthe lazy dog.\nTHE QUICK BROWN FOX JUMPS OVER\rTHE LAZY DOG.\nJerry.", true, true);
         // setText(new TextMessage("Here comes Napstablook.", true, false));
         // setText(new TextMessage(new string[] { "Check", "Compliment", "Ignore", "Steal", "trow temy", "Jerry" }, false));
+        transform.localScale=Vector3.one;
     }
 
     public void setPause(bool pause)
@@ -153,8 +154,8 @@ public class TextManager : MonoBehaviour
         timePerLetter = singleFrameTiming;
         letterTimer = 0.0f;
         destroyText();
-        currentX = self.position.x + offset.x;
-        currentY = self.position.y + offset.y - Charset.LineSpacing;
+        currentX = offset.x;
+        currentY = offset.y - Charset.LineSpacing;
         currentCharacter = 0;
         this.displayImmediate = textQueue[line].ShowImmediate;
         spawnText();
@@ -211,7 +212,7 @@ public class TextManager : MonoBehaviour
 
             if (currentText[i] == '\n')
             {
-                currentX = self.position.x + offset.x;
+                currentX = offset.x;
                 currentY -= Charset.LineSpacing;
             }
             else if (currentText[i] == '\t')
@@ -227,6 +228,7 @@ public class TextManager : MonoBehaviour
             Image ltrImg = singleLtr.GetComponent<Image>();
 
             ltrRect.SetParent(gameObject.transform);
+            ltrRect.localScale=Vector3.one;
 
             ltrImg.sprite = Charset.Letters[currentText[i]];
 
@@ -234,11 +236,11 @@ public class TextManager : MonoBehaviour
 
             if (Charset.Letters.ContainsKey(currentText[i]))
             {
-                ltrRect.position = new Vector3((int)currentX, (int)(currentY + Charset.Letters[currentText[i]].border.w - Charset.Letters[currentText[i]].border.y), 0);
+                ltrRect.localPosition = new Vector3((int)currentX, (int)(currentY + Charset.Letters[currentText[i]].border.w - Charset.Letters[currentText[i]].border.y), 0);
             }
             else
             {
-                ltrRect.position = new Vector3((int)currentX, (int)currentY, 0);
+                ltrRect.localPosition= new Vector3((int)currentX, (int)currentY, 0);
             }
             letterPositions[i] = ltrRect.anchoredPosition;
             ltrImg.SetNativeSize();

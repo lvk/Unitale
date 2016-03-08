@@ -1807,7 +1807,6 @@ GameObject:
   - 114: {fileID: 1509689745}
   - 114: {fileID: 1509689749}
   - 61: {fileID: 1509689752}
-  - 114: {fileID: 1509689751}
   - 50: {fileID: 1509689750}
   m_Layer: 5
   m_Name: player
@@ -1985,17 +1984,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1509689751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509689743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a801232136c0c34dbf649624af94f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1509689752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2008,7 +1996,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 14, y: 14}
 --- !u!1001 &1565117936
 Prefab:
   m_ObjectHideFlags: 0
@@ -2202,7 +2190,7 @@ Camera:
   far clip plane: 1000
   field of view: 79.1999969
   orthographic: 1
-  orthographic size: 240
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2321,7 +2309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EDITOR_MODFOLDER: Examples
-  EDITOR_ENCOUNTER: 01 - Two monsters
+  EDITOR_ENCOUNTER: 04 - Animation
 --- !u!114 &1727881053
 MonoBehaviour:
   m_ObjectHideFlags: 0

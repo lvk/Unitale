@@ -149,6 +149,7 @@ public class LuaSpriteController {
         this.img = i;
         originalSprite = img.sprite;
         nativeSizeDelta = img.rectTransform.sizeDelta;
+        img.transform.localScale=Vector3.one;
     }
 
     public void Set(string name)
