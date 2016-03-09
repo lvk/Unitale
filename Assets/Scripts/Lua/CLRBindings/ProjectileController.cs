@@ -74,10 +74,10 @@ public class ProjectileController
 
     public void UpdatePosition()
     {
-        this.x = p.self.anchoredPosition.x - ArenaSizer.arenaCenter.x;
-        this.y = p.self.anchoredPosition.y - ArenaSizer.arenaCenter.y;
-        this.absx = p.self.anchoredPosition.x;
-        this.absy = p.self.anchoredPosition.y;
+        this.x = p.self.localPosition.x - ArenaSizer.arenaCenter.x;
+        this.y = p.self.localPosition.y - ArenaSizer.arenaCenter.y;
+        this.absx = p.self.localPosition.x;
+        this.absy = p.self.localPosition.y;
     }
 
     public void Remove()

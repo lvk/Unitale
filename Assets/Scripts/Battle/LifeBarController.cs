@@ -27,7 +27,10 @@ public class LifeBarController : MonoBehaviour
         // ensure proper layering because tinkering with the prefab screws it up
         background.transform.SetAsLastSibling(); 
         fill.transform.SetAsLastSibling();
+
         transform.localScale=Vector3.one;
+        fill.transform.localScale=Vector3.one;
+        background.transform.localScale=Vector3.one;
     }
 
     /// <summary>

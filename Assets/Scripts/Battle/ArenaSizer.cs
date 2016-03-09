@@ -150,6 +150,6 @@ public class ArenaSizer : MonoBehaviour
         arenaAbs.y = inner.position.y - inner.rect.height / 2;
         arenaAbs.width = inner.rect.width;
         arenaAbs.height = inner.rect.height;
-        arenaCenter = new Vector2(inner.transform.position.x, inner.transform.position.y);
+        arenaCenter = new Vector2(inner.transform.position.x, inner.transform.position.y-80);
     }
 }
