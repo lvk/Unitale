@@ -215,7 +215,6 @@ public class PlayerController : MonoBehaviour
         // check if new position would be out of arena bounds, and modify accordingly if it is
         if (!ignoreBounds)
         {
-
             if (xPos < arenaBounds.position.x - arenaBounds.sizeDelta.x / 2 + self.rect.size.x / 2)
             {
                 xPos = arenaBounds.position.x - arenaBounds.sizeDelta.x / 2 + self.rect.size.x / 2;
@@ -233,7 +232,6 @@ public class PlayerController : MonoBehaviour
             {
                 yPos = (arenaBounds.position.y + arenaBounds.sizeDelta.y / 2 - self.rect.size.y / 2);
             }
-
         }
 
         // set player position on screen
