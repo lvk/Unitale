@@ -147,9 +147,9 @@ public class ArenaSizer : MonoBehaviour
         inner.sizeDelta = new Vector2(arenaX, arenaY);
         outer.sizeDelta = new Vector2(arenaX + 10, arenaY + 10);
         arenaAbs.x = inner.position.x - inner.rect.width / 2;
-        arenaAbs.y = inner.position.y - inner.rect.height / 2;
+        arenaAbs.y = (inner.position.y - inner.rect.height / 2)-78;
         arenaAbs.width = inner.rect.width;
         arenaAbs.height = inner.rect.height;
-        arenaCenter = new Vector2(inner.transform.position.x, inner.transform.position.y-80);
+        arenaCenter = new Vector2(inner.transform.position.x, inner.transform.position.y-78);
     }
 }

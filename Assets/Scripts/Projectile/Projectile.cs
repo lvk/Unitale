@@ -72,6 +72,11 @@ public abstract class Projectile : MonoBehaviour
         OnUpdate();
     }
 
+    private void OnTriggerStay2D(Collider2D col) {
+        if (col.tag=="Player")
+            OnProjectileHit();
+    }
+
     /// <summary>
     /// Overrideable start function to set projectile-specific settings.
     /// </summary>
@@ -95,8 +100,8 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     public virtual void UpdateHitRect()
     {
-        selfAbs.x = self.localPosition.x - self.rect.width / 2;
-        selfAbs.y = self.localPosition.y - self.rect.height / 2;
+        selfAbs.x = self.position.x - self.rect.width / 2;
+        selfAbs.y = self.position.y - self.rect.height / 2;
     }
 
     /// <summary>
@@ -128,4 +133,5 @@ public abstract class Projectile : MonoBehaviour
 
         currentlyVisible = active;
     }
+
 }

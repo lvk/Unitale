@@ -12,6 +12,7 @@ public class LuaProjectile : Projectile
         selfAbs.width = self.rect.width;
         selfAbs.height = self.rect.height;
         GetComponent<Image>().enabled = true;
+        self.localScale=Vector3.one;
     }
 
     public void setSprite(string name)
@@ -24,13 +25,6 @@ public class LuaProjectile : Projectile
         // destroy projectiles outside of the screen
         /*if (!screen.Contains(self.position))
             BulletPool.instance.Requeue(this);*/
-    }
-
-    public void OnTriggerEnter2D(Collider2D col) {
-
-        if (col.tag=="Player")
-            OnProjectileHit();
-
     }
 
     public override void OnProjectileHit()

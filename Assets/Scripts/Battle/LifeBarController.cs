@@ -29,8 +29,6 @@ public class LifeBarController : MonoBehaviour
         fill.transform.SetAsLastSibling();
 
         transform.localScale=Vector3.one;
-        fill.transform.localScale=Vector3.one;
-        background.transform.localScale=Vector3.one;
     }
 
     /// <summary>
