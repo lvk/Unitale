@@ -8,7 +8,7 @@ public class ScriptRegistry
     internal static string MONSTER_PREFIX = "mon_";
     private static Dictionary<string, string> dict = new Dictionary<string, string>();
 
-    private static string[] folders = new string[] { "Waves", "Encounters", "Monsters" };
+    private static string[] folders = new string[] { "Waves", "Encounters", "Monsters"};
     private static string[] prefixes = new string[] { WAVE_PREFIX, ENCOUNTER_PREFIX, MONSTER_PREFIX };
 
     public static string Get(string key)

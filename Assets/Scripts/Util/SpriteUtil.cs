@@ -121,4 +121,144 @@ public static class SpriteUtil
         i.transform.localPosition=new Vector3(320, 0);
         return new LuaSpriteController(i);
     }
+
+    public static SpriteSheet SpriteSheet(string fileName) {
+
+        string[] getProperties = File.ReadAllLines(fileName+"_properties.txt");
+
+        Dictionary<string, string> properties = new Dictionary<string, string>();
+
+        foreach(string s in getProperties) {
+            properties.Add(s.Split(':')[0],s.Split(':')[1]);
+        }
+
+        int spriteWidth = int.Parse(properties["spriteWidth"]);
+        int spriteHeight = int.Parse(properties["spriteHeight"]);
+        int offsetX = int.Parse(properties["offsetX"]);
+        int offsetY = int.Parse(properties["offsetY"]);
+        int spacingX = int.Parse(properties["spacingX"]);
+        int spacingY = int.Parse(properties["spacingY"]);
+
+        return SpriteSheet(fileName, spriteWidth,spriteHeight,offsetX,offsetY,spacingX,spacingY);
+    }
+
+    public static SpriteSheet SpriteSheet(string fileName, int spriteWidth, int spriteHeight, int offsetX, int offsetY, int spacingX, int spacingY) {
+
+        Texture2D spriteTexture = new Texture2D(1,1);
+        spriteTexture.LoadImage(FileLoader.getBytesFrom(fileName+".png"));
+        spriteTexture.filterMode=FilterMode.Point;
+        spriteTexture.wrapMode=TextureWrapMode.Repeat;
+
+        List<Sprite> result = new List<Sprite>();
+
+        int currentX = offsetX;
+        int currentY = offsetY;
+
+        int xFar = currentX+spriteWidth;
+        int yFar = currentY+spriteHeight;
+
+        int index = 0;
+
+        while (true) {
+
+            while (xFar>=spriteTexture.width) {
+                currentY+=spriteHeight+spacingY;
+                currentX=offsetX;
+                xFar=currentX+spriteWidth;
+                yFar=currentY+spriteHeight;
+                if (yFar>=spriteTexture.height) {
+                    return new SpriteSheet(result.ToArray(),Path.GetFileNameWithoutExtension(fileName));
+                }
+            }
+
+            Sprite nextSprite = Sprite.Create(spriteTexture,new Rect(currentX,currentY,spriteWidth,spriteHeight),Vector2.one/2,20);
+            currentX+=spriteWidth+spacingX;
+            nextSprite.name=Path.GetFileNameWithoutExtension(fileName)+"_"+index.ToString();
+            result.Add(nextSprite);
+
+            xFar = currentX+spriteWidth;
+            yFar = currentY+spriteHeight;
+            index++;
+        }
+    }
+
+    internal static SpriteAnimation[] SpriteAnimations(string filepath) {
+
+        if (!File.Exists(filepath+"_animation.txt"))
+            return null;
+
+        List<SpriteAnimation> animations = new List<SpriteAnimation>();
+
+        string[] allLines = File.ReadAllLines(filepath+"_animation.txt");
+
+        SpriteSheet actualSheet = SpriteSheet(filepath);
+
+        for(int i = 0; i < allLines.Length; i++) {
+            string currLine = allLines[i];
+
+            if (currLine.Length==0)
+                continue;
+
+            string currKey = currLine.Split(':')[0];
+            string currValue = currLine.Split(':')[1];
+
+            if (currKey=="animationName") {
+                int nextLineIndex = i+1;
+
+                if (nextLineIndex>=allLines.Length)
+                    continue;
+
+                Dictionary<string, string> properties = new Dictionary<string, string>();
+
+                string nextLine = allLines[nextLineIndex];
+                string nextKey = nextLine.Split(':')[0];
+                string nextValue = nextLine.Split(':')[1];
+
+                while (nextKey!="animationName") {
+
+                    properties.Add(nextKey,nextValue);
+
+                    nextLineIndex+=1;
+                    if (nextLineIndex>=allLines.Length)
+                        break;
+
+                    nextLine=allLines[nextLineIndex];
+
+                    while (nextLine.Length==0) {
+                        nextLineIndex++;
+                        if (nextLineIndex>=allLines.Length)
+                            break;
+                        nextLine=allLines[nextLineIndex];
+                    }
+
+                    if (nextLineIndex>=allLines.Length)
+                        break;
+
+                    nextKey=nextLine.Split(':')[0];
+                    nextValue=nextLine.Split(':')[1];
+                }
+
+                SpriteAnimation newAnimation = new SpriteAnimation();
+
+                newAnimation.name="_"+currValue;
+                newAnimation.AnimSpeed=float.Parse(properties["animationSpeed"]);
+                string[] stringList = GetStringList(properties["spriteIndexes"],',');
+                Sprite[] sprites = new Sprite[stringList.Length];
+                for(int i2 = 0; i2 < stringList.Length; i2++) {
+                    sprites[i2]=actualSheet.sprites[int.Parse(stringList[i2])];
+                }
+                newAnimation.SetSprites(sprites);
+
+                animations.Add(newAnimation);
+            } else {
+                continue;
+            }
+        }
+
+        return animations.ToArray();
+    }
+
+    public static string[] GetStringList(string input, char split) {
+        return input.Split(split);
+    }
 }

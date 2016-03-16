@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Keyframe {
+public class SpriteKeyframe {
     public Sprite sprite;
 
-    public Keyframe(Sprite sprite)
+    public SpriteKeyframe(Sprite sprite)
     {
         this.sprite = sprite;
     }

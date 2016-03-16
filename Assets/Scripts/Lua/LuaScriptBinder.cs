@@ -27,6 +27,8 @@ public static class LuaScriptBinder
         UserData.RegisterType<LuaUnityTime>();
         UserData.RegisterType<ScriptWrapper>();
         UserData.RegisterType<LuaSpriteController>();
+        UserData.RegisterType<LuaOverworldCharacterStats>();
+        UserData.RegisterType<LuaCharacterSpriteController>();
     }
 
     /// <summary>
@@ -53,8 +55,10 @@ public static class LuaScriptBinder
         // clr bindings
         DynValue MusicMgr = UserData.Create(mgr);
         script.Globals.Set("Audio", MusicMgr);
-        DynValue PlayerStatus = UserData.Create(PlayerController.luaStatus);
-        script.Globals.Set("Player", PlayerStatus);
+        if (!OverworldController.isOverworld) {
+            DynValue PlayerStatus = UserData.Create(PlayerController.luaStatus);
+            script.Globals.Set("Player", PlayerStatus);
+        }
         DynValue InputMgr = UserData.Create(GlobalControls.luaInput);
         script.Globals.Set("Input", InputMgr);
         DynValue TimeInfo = UserData.Create(new LuaUnityTime());

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Character
+  - Object
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1513848731
+    locked: 0
+  - name: Characters
+    uniqueID: 697136355
     locked: 0

@@ -11,6 +11,8 @@ public class StaticInits : MonoBehaviour
 
     public static bool Initialized { get; private set; }
 
+    public bool isOverworld;
+
     private void Awake()
     {
         if (MODFOLDER == null || MODFOLDER == "")
@@ -27,7 +29,10 @@ public class StaticInits : MonoBehaviour
         {
             Stopwatch sw = new Stopwatch(); //benchmarking terrible loading times
             sw.Start();
-            ScriptRegistry.init();
+            if (!isOverworld)
+                ScriptRegistry.init();
+            else
+                OverworldScriptRegistry.init();
             sw.Stop();
             UnityEngine.Debug.Log("Script registry loading time: " + sw.ElapsedMilliseconds + "ms");
             sw.Reset();
