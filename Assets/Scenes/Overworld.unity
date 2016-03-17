@@ -724,4 +724,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EDITOR_MODFOLDER: OverworldExample
   EDITOR_ENCOUNTER: 
-  isOverworld: 1
+  _isOverworld: 1

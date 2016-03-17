@@ -12,8 +12,7 @@ public class SpriteDepthSorting : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        spr.sortingOrder=15-((int)transform.position.y+offset);
-        Debug.Log(transform.position.y);
+	void LateUpdate () {
+        spr.sortingOrder=15-(((int)transform.position.y*2)+offset);
 	}
 }

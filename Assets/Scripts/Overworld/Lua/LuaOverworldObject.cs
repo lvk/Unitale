@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MoonSharp.Interpreter;
-using System;
 
-public class LuaOverworldCharacter : OverworldCharacterController {
+public class LuaOverworldObject : MonoBehaviour{
 
     internal ScriptWrapper script;
 
@@ -13,10 +12,8 @@ public class LuaOverworldCharacter : OverworldCharacterController {
     /// <returns>True if initialization succeeded, false if there was an error.</returns>
     private bool initScript() {
         script=new ScriptWrapper();
-        script.scriptname=characterName;
-        string scriptText = ScriptRegistry.Get(ScriptRegistry.CHARACTER_PREFIX+characterName+"/"+characterName);
-
-        script.Bind("character",new LuaOverworldCharacterStats(this));
+        script.scriptname=gameObject.name;
+        string scriptText = ScriptRegistry.Get(ScriptRegistry.OBJECT_PREFIX+gameObject.name+"/"+gameObject.name);
 
         try {
             script.DoString(scriptText);
@@ -32,7 +29,6 @@ public class LuaOverworldCharacter : OverworldCharacterController {
     }
 
     public void Start() {
-        characterName=gameObject.name;
         initScript();
     }
 

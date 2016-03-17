@@ -15,7 +15,7 @@ public class LuaOverworldPlayer : OverworldPlayerController {
     /// <returns>True if initialization succeeded, false if there was an error.</returns>
     private bool initScript() {
         script=new ScriptWrapper();
-        string scriptText = OverworldScriptRegistry.Get(OverworldScriptRegistry.CHARACTER_PREFIX+gameObject.name+"/"+gameObject.name+"_playerScript");
+        string scriptText = ScriptRegistry.Get(ScriptRegistry.CHARACTER_PREFIX+gameObject.name+"/"+gameObject.name+"_playerScript");
 
         script.Bind("SetPlayerSpeed", (Action<float>)SetPlayerSpeed);
 

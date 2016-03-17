@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TiledSharp;
+using System;
 
 public class TileLayerObject : MonoBehaviour {
 
@@ -13,6 +14,9 @@ public class TileLayerObject : MonoBehaviour {
         layerParts.Clear();
 
         int index = 0;
+
+        LayerPart.tileCol=(GameObject)Resources.Load("Overworld/TileCollision");
+
         foreach (TmxTileset t in OverworldController.loadedMap.Tilesets) {
             GameObject newObject = new GameObject();
             LayerPart lp = new LayerPart();
@@ -20,6 +24,7 @@ public class TileLayerObject : MonoBehaviour {
             lp.obj=newObject;
             lp.filter = newObject.AddComponent<MeshFilter>();
             lp.renderer = newObject.AddComponent<MeshRenderer>();
+            lp.coll=newObject.AddComponent<PolygonCollider2D>();
             newObject.AddComponent<SpriteDepthSorting>();
             lp.set=t;
             lp.UpdateRenderer();
@@ -32,11 +37,21 @@ public class TileLayerObject : MonoBehaviour {
             index++;
         }
 
+        if (myLayer.Properties.ContainsKey("visible")) {
+            if (myLayer.Properties["visible"]=="false")
+                foreach (LayerPart p in layerParts)
+                    p.renderer.enabled=false;
+        }
+
         foreach (TmxLayerTile t in myLayer.Tiles)
             GenerateTile(t);
 
         foreach(LayerPart p in layerParts) {
             p.UpdateMesh();
+        }
+
+        if (myLayer.Properties.ContainsKey("enabled")) {
+            bool set = bool.Parse(myLayer.Properties["enabled"]);
         }
     }
 
@@ -55,6 +70,8 @@ public class TileLayerObject : MonoBehaviour {
     public void AddFace(int layerID, TmxLayerTile tile) {
         LayerPart l = layerParts[layerID];
 
+        l.AddCollision(layerID,tile);
+
         l.AddFace(tile.Gid,tile.X, OverworldController.loadedMap.Height-tile.Y);
     }
 }
@@ -63,11 +80,15 @@ public class LayerPart {
     public GameObject obj;
     public MeshFilter filter;
     public MeshRenderer renderer;
+    public PolygonCollider2D coll;
     public Mesh mesh;
     public TmxTileset set;
 
+    public static GameObject tileCol;
+
     public List<Vector3> vertices = new List<Vector3>();
     public List<Vector2> uv = new List<Vector2>();
+    public List<Vector2> collisionData = new List<Vector2>();
     public List<int> triangles = new List<int>();
 
     int faceCount = 0;
@@ -101,6 +122,9 @@ public class LayerPart {
 
         mesh.RecalculateNormals();
         mesh.Optimize();
+
+        coll.points=collisionData.ToArray();
+        collisionData.Clear();
 
         faceCount=0;
 
@@ -150,11 +174,37 @@ public class LayerPart {
         float xSize = 20/(float)set.Image.Width;
         float ySize = 20/(float)set.Image.Height;
 
-        returnValue[3]=new Vector2(xCoord,1-yCoord);
-        returnValue[0]=new Vector2(xCoord, 1-yCoord+ySize);
-        returnValue[1]=new Vector2(xCoord+xSize, 1-yCoord+ySize);
-        returnValue[2]=new Vector2(xCoord+xSize, 1-yCoord);
+        returnValue[3]=new Vector2(xCoord*1.001f, (1-yCoord)*1.001f);
+        returnValue[0]=new Vector2(xCoord*1.001f, (1-yCoord+ySize)*0.999f);
+        returnValue[1]=new Vector2((xCoord+xSize)*0.999f, (1-yCoord+ySize)*0.999f);
+        returnValue[2]=new Vector2((xCoord+xSize)*0.999f, (1-yCoord)*1.001f);
 
         return returnValue;
+    }
+
+    internal void AddCollision(int layerID, TmxLayerTile tile) {
+        TmxTileset set = OverworldController.loadedMap.Tilesets[layerID];
+
+        int realID = tile.Gid-set.FirstGid;
+
+        if (realID<=0)
+            return;
+
+        TmxTilesetTile getTile = null;
+
+        foreach (TmxTilesetTile t in set.Tiles) {
+            if (t.Id==realID) {
+                getTile=t;
+            }
+        }
+
+        if (getTile==null)
+            return;
+        if(getTile.Properties.ContainsKey("boxcollider")){
+            GameObject newCol = GameObject.Instantiate(tileCol);
+
+            newCol.transform.position=new Vector3(tile.X,OverworldController.loadedMap.Height-tile.Y,0)+new Vector3(0.5f,-0.5f,0);
+            newCol.transform.SetParent(obj.transform);
+        }
     }
 }

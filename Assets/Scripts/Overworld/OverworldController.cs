@@ -29,13 +29,13 @@ public class OverworldController : MonoBehaviour {
         playerPrefab=Resources.Load<GameObject>("Overworld/Player");
         characterPrefab=Resources.Load<GameObject>("Overworld/Character");
 
-        OverworldScriptRegistry.init();
+        ScriptRegistry.init();
 
         LoadLevel(LevelName);
 	}
 
     public static void LoadLevel(string filename) {
-        string path = Application.dataPath+"/Maps/"+filename+".tmx";
+        string path = FileLoader.ModDataPath+"/Maps/"+filename+".tmx";
 
         loadedMap=new TmxMap(path);
 
