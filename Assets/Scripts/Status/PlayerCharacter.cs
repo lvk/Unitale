@@ -38,17 +38,16 @@ public static class PlayerCharacter {
 
     public static void SetLevel(int level)
     {
-        if (level < 1 || level > 20)
+        if (level < 1)
         {
             return;
         }
-        MaxHP = 16 + 4 * level;
         ATK = 8 + 2 * level;
         LV = level;
-
-        if (LV == 20)
-        {
-            MaxHP = 99;
-        }
+    }
+    
+    public static void SetMaxHP(int maxhp)
+    {
+        MaxHP = maxhp;
     }
 }
