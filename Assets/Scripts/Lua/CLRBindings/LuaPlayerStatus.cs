@@ -139,7 +139,30 @@ public class LuaPlayerStatus
             }
         }
     }
-
+    
+    /// <summary>
+    /// Player character's maximum HP.
+    /// </summary>
+    public int maxhp
+    {
+        get
+        {
+            return PlayerCharacter.MaxHP;
+        }
+        set
+        {
+            if (PlayerCharacter.MaxHP != value && value > 0)
+            {
+                PlayerCharacter.SetMaxHP(value);
+                if (PlayerCharacter.HP > PlayerCharacter.MaxHP)
+				{
+					player.setHP(PlayerCharacter.MaxHP);
+				}
+				UIStats.instance.setMaxHP();
+            }
+        }
+    }
+    
     /// <summary>
     /// True if player is currently blinking and invincible, false otherwise.
     /// </summary>
