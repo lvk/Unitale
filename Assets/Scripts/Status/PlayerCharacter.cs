@@ -51,4 +51,9 @@ public static class PlayerCharacter {
             MaxHP = 99;
         }
     }
+    
+    public static void SetMaxHP(int maxhp)
+    {
+        MaxHP = maxhp;
+    }
 }
