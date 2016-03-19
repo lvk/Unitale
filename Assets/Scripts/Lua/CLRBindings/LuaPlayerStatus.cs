@@ -130,12 +130,7 @@ public class LuaPlayerStatus
             if (PlayerCharacter.LV != value)
             {
                 PlayerCharacter.SetLevel(value);
-                if (PlayerCharacter.HP > PlayerCharacter.MaxHP)
-                {
-                    player.setHP(PlayerCharacter.MaxHP);
-                }
                 UIStats.instance.setPlayerInfo(PlayerCharacter.Name, PlayerCharacter.LV);
-                UIStats.instance.setMaxHP();
             }
         }
     }
