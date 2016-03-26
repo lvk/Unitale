@@ -98,7 +98,7 @@ public class LayerPart {
 
     public void UpdateRenderer() {
 
-        byte[] data = System.IO.File.ReadAllBytes(Application.dataPath+"/TILED/Tilesets/"+System.IO.Path.GetFileNameWithoutExtension(set.Image.Source)+".png");
+        byte[] data = System.IO.File.ReadAllBytes(FileLoader.ModDataPath+"/Sprites/Sets/"+System.IO.Path.GetFileNameWithoutExtension(set.Image.Source)+".png");
 
         Texture2D t = new Texture2D(5, 5);
         t.LoadImage(data);

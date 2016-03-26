@@ -29,6 +29,9 @@ public static class LuaScriptBinder
         UserData.RegisterType<LuaSpriteController>();
         UserData.RegisterType<LuaOverworldCharacterStats>();
         UserData.RegisterType<LuaCharacterSpriteController>();
+        UserData.RegisterType<LuaGameObject>();
+        UserData.RegisterType<LuaTransform>();
+        UserData.RegisterType<LuaOverworldPlayerStats>();
     }
 
     /// <summary>

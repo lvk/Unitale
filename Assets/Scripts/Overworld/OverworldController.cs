@@ -10,7 +10,7 @@ public class OverworldController : MonoBehaviour {
     public static TmxMap loadedMap;
     static OverworldController main;
     Transform objects;
-    GameObject playerPrefab, characterPrefab;
+    GameObject playerPrefab, characterPrefab, objectPrefab;
 
     public string LevelName;
 
@@ -28,11 +28,19 @@ public class OverworldController : MonoBehaviour {
         objects=transform.FindChild("Objects");
         playerPrefab=Resources.Load<GameObject>("Overworld/Player");
         characterPrefab=Resources.Load<GameObject>("Overworld/Character");
+        objectPrefab=Resources.Load<GameObject>("Overworld/Object");
 
         ScriptRegistry.init();
 
+        AddCustomObjectProperties();
+
         LoadLevel(LevelName);
 	}
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.G))
+            EncounterEnemy();
+    }
 
     public static void LoadLevel(string filename) {
         string path = FileLoader.ModDataPath+"/Maps/"+filename+".tmx";
@@ -84,20 +92,20 @@ public class OverworldController : MonoBehaviour {
                 } else if (type=="player"||type=="Player") {
                     GeneratePlayerObject(obj);
                 } else {
-                    GenerateReferencePointObject(obj);
+                    GenerateObject(obj);
                 }
                     
             }
         }
     }
 
-    private void GenerateReferencePointObject(TmxObjectGroup.TmxObject obj) {
-        GameObject newObject = new GameObject();
+    private void GenerateObject(TmxObjectGroup.TmxObject obj) {
+        GameObject newObject = Instantiate(objectPrefab);
 
-        newObject.name=obj.Name;
-
-        newObject.transform.position=new Vector3((float)obj.X/OverworldController.loadedMap.TileWidth, OverworldController.loadedMap.Height-((float)obj.Y/OverworldController.loadedMap.TileHeight), 0);
+        newObject.transform.position=new Vector3((float)obj.X/loadedMap.TileWidth+0.5f, loadedMap.Height-((float)obj.Y/loadedMap.TileHeight)+0.5f, 0);
         newObject.transform.SetParent(objects);
+
+        newObject.GetComponent<LuaOverworldObject>().UpdateToObject(obj);
     }
 
     private void GeneratePlayerObject(TmxObjectGroup.TmxObject obj) {
@@ -105,10 +113,10 @@ public class OverworldController : MonoBehaviour {
 
         newObject.name=obj.Name;
 
-        newObject.transform.position=new Vector3((float)obj.X/OverworldController.loadedMap.TileWidth, OverworldController.loadedMap.Height-((float)obj.Y/OverworldController.loadedMap.TileHeight), 0);
+        newObject.transform.position=new Vector3((float)obj.X/loadedMap.TileWidth+0.5f, loadedMap.Height-((float)obj.Y/loadedMap.TileHeight)+0.5f, 0);
         newObject.transform.SetParent(objects);
 
-        characterPrefab.GetComponent<OverworldCharacterController>().UpdateToObject(obj);
+        newObject.GetComponent<OverworldCharacterController>().UpdateToObject(obj);
     }
 
     private void GenerateCharacterObject(TmxObjectGroup.TmxObject obj) {
@@ -116,10 +124,10 @@ public class OverworldController : MonoBehaviour {
 
         newObject.name=obj.Name;
 
-        newObject.transform.position=new Vector3((float)obj.X/OverworldController.loadedMap.TileWidth, OverworldController.loadedMap.Height-((float)obj.Y/OverworldController.loadedMap.TileHeight), 0);
+        newObject.transform.position=new Vector3((float)obj.X/loadedMap.TileWidth+0.5f, loadedMap.Height-((float)obj.Y/loadedMap.TileHeight)+0.5f, 0);
         newObject.transform.SetParent(objects);
 
-        characterPrefab.GetComponent<OverworldCharacterController>().UpdateToObject(obj);
+        newObject.GetComponent<OverworldCharacterController>().UpdateToObject(obj);
     }
 
     public static int GetTilesetForID(int id) {
@@ -132,5 +140,19 @@ public class OverworldController : MonoBehaviour {
         }
 
         return rId;
+    }
+
+
+    private void AddCustomObjectProperties() {
+        LuaOverworldObject.avaliableProperties.Add("interactable",typeof(Interactable));
+        LuaOverworldObject.avaliableProperties.Add("dialogprovider",typeof(DialogProvider));
+    }
+
+
+    public static void EncounterEnemy() {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+        StaticInits.isOverworld=false;
+        StaticInits.MODFOLDER="OverworldExample";
+        StaticInits.ENCOUNTER="encounter";
     }
 }

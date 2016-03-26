@@ -236,11 +236,11 @@ public class TextManager : MonoBehaviour
 
             if (Charset.Letters.ContainsKey(currentText[i]))
             {
-                ltrRect.localPosition = new Vector3((int)currentX, (int)(currentY + Charset.Letters[currentText[i]].border.w - Charset.Letters[currentText[i]].border.y), 0);
+                ltrRect.anchoredPosition= new Vector3((int)currentX, (int)(currentY + Charset.Letters[currentText[i]].border.w - Charset.Letters[currentText[i]].border.y), 0);
             }
             else
             {
-                ltrRect.localPosition= new Vector3((int)currentX, (int)currentY, 0);
+                ltrRect.anchoredPosition= new Vector3((int)currentX, (int)currentY, 0);
             }
             letterPositions[i] = ltrRect.anchoredPosition;
             ltrImg.SetNativeSize();

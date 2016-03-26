@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 public class ScriptRegistry
@@ -49,6 +50,10 @@ public class ScriptRegistry
                 //loadAllFrom(defaultPath, prefixes[i]);
             }
         }
+    }
+
+    internal static bool ScriptExists(string v) {
+        return dict.ContainsKey(v);
     }
 
     private static void loadAllFrom(string directoryPath, string script_prefix)

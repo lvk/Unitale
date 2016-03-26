@@ -5,8 +5,6 @@ using System;
 
 public class LuaOverworldPlayer : OverworldPlayerController {
 
-    public ScriptWrapper myScript;
-
     internal ScriptWrapper script;
 
     /// <summary>
@@ -18,6 +16,8 @@ public class LuaOverworldPlayer : OverworldPlayerController {
         string scriptText = ScriptRegistry.Get(ScriptRegistry.CHARACTER_PREFIX+gameObject.name+"/"+gameObject.name+"_playerScript");
 
         script.Bind("SetPlayerSpeed", (Action<float>)SetPlayerSpeed);
+        script.Bind("controller",new LuaOverworldPlayerStats(this));
+        script.Bind("object",new LuaGameObject(gameObject));
 
         try {
             script.DoString(scriptText);

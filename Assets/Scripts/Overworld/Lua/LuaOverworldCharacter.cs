@@ -16,6 +16,7 @@ public class LuaOverworldCharacter : OverworldCharacterController {
         script.scriptname=characterName;
         string scriptText = ScriptRegistry.Get(ScriptRegistry.CHARACTER_PREFIX+characterName+"/"+characterName);
 
+        script.Bind("object",new LuaGameObject(gameObject));
         script.Bind("character",new LuaOverworldCharacterStats(this));
 
         try {
@@ -36,8 +37,14 @@ public class LuaOverworldCharacter : OverworldCharacterController {
         initScript();
     }
 
-    public void Update() {
+    public override void Update() {
+        base.Update();
         script.Call("Update");
+    }
+
+    public override void OnReachedTarget() {
+        base.OnReachedTarget();
+        script.Call("OnReachedTarget");
     }
 
 }

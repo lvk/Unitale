@@ -3,13 +3,19 @@ using System.Collections;
 
 public class LuaOverworldPlayerStats : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    LuaOverworldPlayer player;
+
+    public LuaOverworldPlayerStats(LuaOverworldPlayer p) {
+        player=p;
+    }
+
+    public bool controllable {
+        get {
+            return player.enabled;
+        }
+        set {
+            player.enabled=value;
+        }
+    }
+
 }

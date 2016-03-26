@@ -11,7 +11,10 @@ public class OverworldPlayerController : MonoBehaviour {
 
     public float playerSpeed = 1;
 
+    public static OverworldPlayerController main;
+
     public void Start() {
+        main=this;
         rb=GetComponent<Rigidbody2D>();
         cont=GetComponent<OverworldCharacterController>();
         OverworldCameraController.target=transform;

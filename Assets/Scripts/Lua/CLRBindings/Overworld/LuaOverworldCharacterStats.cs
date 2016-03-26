@@ -20,36 +20,31 @@ public class LuaOverworldCharacterStats {
         this.spr=new LuaCharacterSpriteController(p.GetComponentInChildren<CharacterSpriteController>());
     }
 
-    public float x {
-        get {
-            return thisCharacter.transform.position.x;
-        }
-        set {
-            thisCharacter.transform.position=new Vector3(value,y);
-        }
-    }
-
-    public float y {
-        get {
-            return thisCharacter.transform.position.y;
-        }
-        set {
-            thisCharacter.transform.position=new Vector3(x, value);
-        }
-    }
-
-    public float rotation {
-        get {
-            return thisCharacter.transform.eulerAngles.z;
-        }
-        set {
-            thisCharacter.transform.rotation=Quaternion.Euler(0,0,value);
-        }
-    }
-
     public LuaCharacterSpriteController sprite {
         get {
             return spr;
         }
+    }
+
+    public int moveState {
+        get {
+            return thisCharacter.state;
+        }
+        set {
+            thisCharacter.state=value;
+        }
+    }
+
+    public float moveSpeed {
+        get {
+            return thisCharacter.moveSpeed;
+        }
+        set {
+            thisCharacter.moveSpeed=value;
+        }
+    }
+
+    public void MoveToPoint(float x, float y) {
+        thisCharacter.MoveToPoint(new Vector2(x,y));
     }
 }

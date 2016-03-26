@@ -2013,6 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a801232136c0c34dbf649624af94f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHalf: 0
 --- !u!61 &1509689751
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2359,8 +2360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78442f37a69919a409f51348d2557607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EDITOR_MODFOLDER: Examples
-  EDITOR_ENCOUNTER: 02 - Colored bullets
+  EDITOR_MODFOLDER: Encounter Skeleton
+  EDITOR_ENCOUNTER: encounter
+  _isOverworld: 0
 --- !u!114 &1727881053
 MonoBehaviour:
   m_ObjectHideFlags: 0
