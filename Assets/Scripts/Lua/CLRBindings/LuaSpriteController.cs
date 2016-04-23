@@ -188,10 +188,10 @@ public class LuaSpriteController {
 
     public void SetAnimation(string[] spriteNames, float frametime)
     {
-        Keyframe[] kfArray = new Keyframe[spriteNames.Length];
+        SpriteKeyframe[] kfArray = new SpriteKeyframe[spriteNames.Length];
         for (int i = 0; i < spriteNames.Length; i++)
         {
-            kfArray[i] = new Keyframe(SpriteRegistry.Get(spriteNames[i]));
+            kfArray[i] = new SpriteKeyframe(SpriteRegistry.Get(spriteNames[i]));
         }
         if (keyframes == null)
         {
@@ -247,7 +247,7 @@ public class LuaSpriteController {
         {
             return;
         }
-        Keyframe k = keyframes.getCurrent();
+        SpriteKeyframe k = keyframes.getCurrent();
         Sprite s = SpriteRegistry.GENERIC_SPRITE_PREFAB.sprite;
         
         if (k != null)

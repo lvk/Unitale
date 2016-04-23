@@ -11,6 +11,9 @@ GameObject:
   - 222: {fileID: 22205296}
   - 114: {fileID: 11436234}
   - 114: {fileID: 11483680}
+  - 61: {fileID: 6177868}
+  - 114: {fileID: 11490462}
+  - 50: {fileID: 5069342}
   m_Layer: 5
   m_Name: LUAProjectile
   m_TagString: Untagged
@@ -18,6 +21,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!50 &5069342
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100400}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 2
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &6177868
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100400}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!114 &11436234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,6 +90,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513dcff311a82a84bbf829ccd843c00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11490462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a801232136c0c34dbf649624af94f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &22205296
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -74,11 +119,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -86.8300018, y: 74.8799973}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -86.83, y: 74.88}
   m_SizeDelta: {x: 12, y: 13}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

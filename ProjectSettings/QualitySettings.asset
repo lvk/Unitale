@@ -15,8 +15,8 @@ QualitySettings:
     shadowCascades: 4
     shadowDistance: 150
     shadowNearPlaneOffset: 2
-    shadowCascade2Split: .333333343
-    shadowCascade4Split: {x: .0666666701, y: .199999988, z: .466666639}
+    shadowCascade2Split: 0.33333334
+    shadowCascade4Split: {x: 0.06666667, y: 0.19999999, z: 0.46666664}
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 0
@@ -29,6 +29,8 @@ QualitySettings:
     lodBias: 2
     maximumLODLevel: 0
     particleRaycastBudget: 4096
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 4
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 0

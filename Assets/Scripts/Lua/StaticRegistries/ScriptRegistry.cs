@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 public class ScriptRegistry
@@ -6,10 +7,16 @@ public class ScriptRegistry
     internal static string WAVE_PREFIX = "wave_";
     internal static string ENCOUNTER_PREFIX = "enc_";
     internal static string MONSTER_PREFIX = "mon_";
+    internal static string CHARACTER_PREFIX = "char_";
+    internal static string OBJECT_PREFIX = "obj_";
+    internal static string LEVEL_PREFIX = "lvl_";
+    internal static string NOPREFIX = "";
     private static Dictionary<string, string> dict = new Dictionary<string, string>();
 
-    private static string[] folders = new string[] { "Waves", "Encounters", "Monsters" };
+    private static string[] folders = new string[] { "Waves", "Encounters", "Monsters"};
     private static string[] prefixes = new string[] { WAVE_PREFIX, ENCOUNTER_PREFIX, MONSTER_PREFIX };
+    private static string[] foldersOv = new string[] { "Characters", "Objects", "Levels", "" };
+    private static string[] prefixesOv = new string[] { CHARACTER_PREFIX, OBJECT_PREFIX, LEVEL_PREFIX, NOPREFIX };
 
     public static string Get(string key)
     {
@@ -27,13 +34,26 @@ public class ScriptRegistry
     public static void init()
     {
         dict.Clear();
-        for (int i = 0; i < folders.Length; i++)
-        {
-            string modPath = FileLoader.pathToModFile("Lua/" + folders[i]);
-            //string defaultPath = FileLoader.pathToDefaultFile("Lua/" + folders[i]);
-            loadAllFrom(modPath, prefixes[i]);
-            //loadAllFrom(defaultPath, prefixes[i]);
+
+        if (!StaticInits.isOverworld) {
+            for (int i = 0; i<folders.Length; i++) {
+                string modPath = FileLoader.pathToModFile("Lua/"+folders[i]);
+                //string defaultPath = FileLoader.pathToDefaultFile("Lua/" + folders[i]);
+                loadAllFrom(modPath, prefixes[i]);
+                //loadAllFrom(defaultPath, prefixes[i]);
+            }
+        } else {
+            for (int i = 0; i<foldersOv.Length; i++) {
+                string modPath = FileLoader.pathToModFile("Lua/"+foldersOv[i]);
+                //string defaultPath = FileLoader.pathToDefaultFile("Lua/" + folders[i]);
+                loadAllFrom(modPath, prefixesOv[i]);
+                //loadAllFrom(defaultPath, prefixes[i]);
+            }
         }
+    }
+
+    internal static bool ScriptExists(string v) {
+        return dict.ContainsKey(v);
     }
 
     private static void loadAllFrom(string directoryPath, string script_prefix)

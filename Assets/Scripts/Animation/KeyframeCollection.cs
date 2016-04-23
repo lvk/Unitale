@@ -3,12 +3,12 @@ using System.Collections;
 
 public class KeyframeCollection : MonoBehaviour {
     public float timePerFrame = 1 / 30f;
-    public Keyframe[] keyframes;
+    public SpriteKeyframe[] keyframes;
     internal float registrationTime;
     internal LuaSpriteController spr;
     internal LoopMode loop = LoopMode.LOOP;
     private float totalTime;
-    private Keyframe EMPTY_KEYFRAME = new Keyframe(SpriteRegistry.EMPTY_SPRITE);
+    private SpriteKeyframe EMPTY_KEYFRAME = new SpriteKeyframe(SpriteRegistry.EMPTY_SPRITE);
 
     public enum LoopMode
     {
@@ -16,7 +16,7 @@ public class KeyframeCollection : MonoBehaviour {
         LOOP
     }
 
-    public void Set(Keyframe[] keyframes, float timePerFrame = 1/30f)
+    public void Set(SpriteKeyframe[] keyframes, float timePerFrame = 1/30f)
     {
         this.keyframes = keyframes;
         this.timePerFrame = timePerFrame;
@@ -24,7 +24,7 @@ public class KeyframeCollection : MonoBehaviour {
         registrationTime = Time.time;
     }
 
-    public Keyframe getCurrent()
+    public SpriteKeyframe getCurrent()
     {
         if (loop == LoopMode.LOOP)
         {

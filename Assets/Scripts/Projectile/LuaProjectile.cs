@@ -12,6 +12,7 @@ public class LuaProjectile : Projectile
         selfAbs.width = self.rect.width;
         selfAbs.height = self.rect.height;
         GetComponent<Image>().enabled = true;
+        self.localScale=Vector3.one;
     }
 
     public void setSprite(string name)

@@ -7,9 +7,11 @@ In the meantime, you'll want to load the ModSelect scene from the Scenes folder.
 ##Required files
 
 To be able to run Unitale you'll need the default Undertale assets. The default Undertale assets are by Toby Fox (http://www.undertale.com) and used with permission.
-The files from this .zip should be unpacked to the Assets folder of the project.
+The files from that .zip should be unpacked to the Assets folder of the project, they can be found here.
+https://github.com/lvk/Unitale
 
-http://www.mediafire.com/download/6cfsv7pggfodcwx/Undertale_Assets_and_Example_Mods.zip
+This is the overworld example mod, which should be extracted to the Mods folder.
+http://www.mediafire.com/download/j7jxo2o51o94496/OverworldExample.zip
 
 ##Licenses
 

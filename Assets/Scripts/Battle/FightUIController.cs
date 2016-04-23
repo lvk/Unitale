@@ -78,9 +78,9 @@ public class FightUIController : MonoBehaviour
         enemy = target;
         enePos = enemy.GetComponent<RectTransform>().position;
         targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width/2, 0);
-        Vector3 slicePos = target.GetComponent<RectTransform>().position;
-        slicePos.Set(slicePos.x, slicePos.y + target.GetComponent<RectTransform>().rect.height / 2 - 55, slicePos.z); // lol hardcoded offsets
-        slice.img.GetComponent<RectTransform>().position = slicePos;
+        Vector3 slicePos = target.GetComponent<RectTransform>().localPosition;
+        slicePos.Set(slicePos.x, slicePos.y+85, slicePos.z); // lol hardcoded offsets
+        slice.img.GetComponent<RectTransform>().localPosition= slicePos;
         borderX = -GetComponent<RectTransform>().rect.width / 2;
         stopped = false;
         shakeInProgress = false;
@@ -191,7 +191,7 @@ public class FightUIController : MonoBehaviour
                 enemy.GetComponent<RectTransform>().anchoredPosition = new Vector2(localEnePos.x + shakeX[shakeIndex], localEnePos.y);
             }
 
-            damageTextRt.position = new Vector2(damageTextRt.position.x, 80 + enePos.y + 40 * Mathf.Sin(shakeTimer * Mathf.PI * 0.75f));
+            damageTextRt.localPosition = new Vector2(enePos.x-325, enePos.y + 40 * Mathf.Sin(shakeTimer * Mathf.PI * 0.75f));
 
             shakeTimer += Time.deltaTime;
             if (shakeTimer >= totalShakeTime)
@@ -226,7 +226,7 @@ public class FightUIController : MonoBehaviour
             foreach (char c in damageTextStr)
                 if (c == '1')
                     damageTextWidth -= 12; // lol hardcoded offsets
-            damageTextRt.position = new Vector2(enePos.x - 0.5f * damageTextWidth, 80 + enePos.y);
+            damageTextRt.localPosition=new Vector2(enePos.x-325, enePos.y+40*Mathf.Sin(shakeTimer*Mathf.PI*0.75f));
             damageText.setText(new TextMessage(damageTextStr, false, true));
 
             // initiate lifebar and set lerp to its new health value
@@ -235,7 +235,7 @@ public class FightUIController : MonoBehaviour
                 int newHP = enemy.HP - Damage;
                 if (newHP < 0)
                     newHP = 0;
-                lifeBar.GetComponent<RectTransform>().position = new Vector2(enePos.x, enePos.y + 20);
+                lifeBar.GetComponent<RectTransform>().localPosition = new Vector2(enePos.x-320, enePos.y -150);
                 lifeBar.GetComponent<RectTransform>().sizeDelta = new Vector2(enemy.GetComponent<RectTransform>().rect.width, 13);
                 lifeBar.setInstant((float)enemy.HP / (float)enemy.getMaxHP());
                 lifeBar.setLerp((float)enemy.HP / (float)enemy.getMaxHP(), (float)newHP / (float)enemy.getMaxHP());

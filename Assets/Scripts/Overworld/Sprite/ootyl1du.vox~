@@ -1,0 +1,31 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+
+public class SpriteAnimation {
+
+    public string name;
+
+    public float speed;
+    public Sprite[] sprites;
+
+    public SpriteAnimation GetAnimFromFile(string filePath){
+        SpriteAnimation newAnim = new SpriteAnimation();
+
+        string[] spriteSheetData = File.ReadAllLines(filePath);
+        Dictionary<string, string> sheetProperties = new Dictionary<string, string>();
+
+        foreach(string s in spriteSheetData) {
+            string[] split = s.Split(':');
+
+            sheetProperties.Add(split[0],split[1]);
+        }
+
+        //Sprite[] getSprites = SpriteUtil.SpriteSheet(filePath+".png",int.Parse(sheetProperties["spriteWidth"]),int.Parse(sheetProperties["spriteHeight"]), int.Parse(sheetProperties["offsetX"]), int.Parse(sheetProperties["offsetY"]),int.Parse(sheetProperties["spacingX"]), int.Parse(sheetProperties["spacingY"]));
+
+
+        return newAnim;
+    }
+
+}
